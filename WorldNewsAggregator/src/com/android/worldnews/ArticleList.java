@@ -6,12 +6,12 @@ import com.android.worldnews.data.Article;
 import com.android.worldnews.util.HtmlParser;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 
 import android.widget.ListView;
-import android.widget.Toast;
 
 
 public class ArticleList extends ListActivity {
@@ -31,9 +31,9 @@ public class ArticleList extends ListActivity {
 	    
 	    // Passes URL from MainActivity to this activity
 	    Bundle extras = getIntent().getExtras();
-	    String newsUrl = extras.getString("url");
+	    String searchUrl = extras.getString("searchUrl");
 	    	    
-	    articleList = parser.parseUrlAndGetArticles(newsUrl);
+	    articleList = parser.parseUrlAndGetArticles(searchUrl);
 		
 	    setListAdapter(new ArticleListAdapter(this, articleList));    
 	}
@@ -42,7 +42,9 @@ public class ArticleList extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView listView, View view, int position, long id)
 	{
-		String selectedValue = (String) ((Article) getListAdapter().getItem(position)).getUrl();
-		Toast.makeText(this, selectedValue, Toast.LENGTH_SHORT).show();
+		String newsUrl = (String) ((Article) getListAdapter().getItem(position)).getUrl();
+		Intent intent = new Intent(ArticleList.this, ArticleView.class);
+		intent.putExtra("newsUrl", newsUrl);
+		startActivity(intent);
 	}
 }

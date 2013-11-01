@@ -38,7 +38,8 @@ public class HtmlParser
 				if (link.attr("href").contains("http") 
 							&& !link.attr("href").contains("google.com")
 							&& !link.attr("href").contains("youtube.com")
-							&& !link.attr("href").contains("blogger.com"))
+							&& !link.attr("href").contains("blogger.com")
+							&& !link.attr("href").contains(".html"))
 				{
 					System.out.println("\nlink: " + link.attr("href"));
 					System.out.println("text: " + link.text());
